@@ -2,6 +2,8 @@
 """
 defines lockbox function
 """
+
+
 def canUnlockAll(boxes):
     """
     This function determines whether all boxes can be unlocked
@@ -22,7 +24,7 @@ def canUnlockAll(boxes):
             if key != 0 and key < box_length and key not in unlocked:
                 i = key
                 break
-            
+
         if oldi != i:
             continue
         else:
