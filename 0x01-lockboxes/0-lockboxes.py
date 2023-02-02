@@ -5,6 +5,9 @@ defines lockbox function
 def canUnlockAll(boxes):
     """
     This function determines whether all boxes can be unlocked
+    Returns:
+        True: all boxes can be opened
+        False: not all boxes can be opened
     """
     unlocked = [0]
     for i in range(len(boxes) - 1):
