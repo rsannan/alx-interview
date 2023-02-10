@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 '''Minimum Operations python3 challenge'''
 
 
