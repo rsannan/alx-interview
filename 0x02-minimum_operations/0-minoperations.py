@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 '''Minimum Operations python3 challenge'''
 
 
@@ -9,7 +9,6 @@ def minOperations(n):
     Returns:
         Integer : if n is impossible to achieve, return 0
     '''
-
     totalH = 1
     copiedH = 0
     sum_ops = 0
