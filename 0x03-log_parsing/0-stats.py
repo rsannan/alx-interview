@@ -34,11 +34,6 @@ def checkline(line):
     if (http_string != http_pattern):
         return False
 
-# check status code
-    status_codes = [200, 301, 400, 401, 403, 404, 405, 500]
-    code = int(line_arr[-2])
-    if (code not in status_codes):
-        return False
     return True
 
 
