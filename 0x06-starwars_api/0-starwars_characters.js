@@ -19,7 +19,7 @@ function main () {
     const myObj = JSON.parse(body);
     for (const api of myObj.characters) {
       const name = await printNames(api);
-      console.log(name);
+      process.stdout.write(name + '\n');
     }
   });
 }
