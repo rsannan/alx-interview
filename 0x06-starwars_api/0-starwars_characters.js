@@ -1,36 +1,57 @@
 #!/usr/bin/node
 
-const rp = require('request-promise');
+const request = require('request');
 
-const args = process.argv.slice(2);
-const id = args[0];
+const movieId = process.argv[2];
+const filmEndPoint = 'https://swapi-api.hbtn.io/api/films/' + movieId;
+let people = [];
 const names = [];
 
-function printNames (api) {
-  return new Promise(function (resolve, reject) {
-    rp(api).then((body) => {
-      const myName = JSON.parse(body);
-      resolve(myName.name);
-    });
-  });
-}
-
-function main () {
-  rp(`https://swapi-api.alx-tools.com/api/films/${id}`).then(async (body) => {
-    const myObj = JSON.parse(body);
-    for (const api of myObj.characters) {
-      const name = await printNames(api);
-      names.push(name);
-    }
-
-    for (const n of names) {
-      if (n === names[names.length - 1]) {
-        process.stdout.write(n);
+const requestCharacters = async () => {
+  await new Promise((resolve) =>
+    request(filmEndPoint, (err, res, body) => {
+      if (err || res.statusCode !== 200) {
+        console.error('Error: ', err, '| StatusCode: ', res.statusCode);
       } else {
-        process.stdout.write(n + '\n');
+        const jsonBody = JSON.parse(body);
+        people = jsonBody.characters;
+        resolve();
       }
-    }
-  });
-}
+    })
+  );
+};
 
-main();
+const requestNames = async () => {
+  if (people.length > 0) {
+    for (const p of people) {
+      await new Promise((resolve) =>
+        request(p, (err, res, body) => {
+          if (err || res.statusCode !== 200) {
+            console.error('Error: ', err, '| StatusCode: ', res.statusCode);
+          } else {
+            const jsonBody = JSON.parse(body);
+            names.push(jsonBody.name);
+            resolve();
+          }
+        })
+      );
+    }
+  } else {
+    console.error('Error: Got no Characters for some reason');
+  }
+};
+
+const getCharNames = async () => {
+  await requestCharacters();
+  await requestNames();
+
+  for (const n of names) {
+    if (n === names[names.length - 1]) {
+      process.stdout.write(n);
+    } else {
+      process.stdout.write(n + '\n');
+    }
+  }
+};
+
+getCharNames();
