@@ -4,6 +4,7 @@ const rp = require('request-promise');
 
 const args = process.argv.slice(2);
 const id = args[0];
+const names = [];
 
 function printNames (api) {
   return new Promise(function (resolve, reject) {
@@ -19,7 +20,15 @@ function main () {
     const myObj = JSON.parse(body);
     for (const api of myObj.characters) {
       const name = await printNames(api);
-      process.stdout.write(name + '\n');
+      names.push(name);
+    }
+
+    for (const n of names) {
+      if (n === names[names.length - 1]) {
+        process.stdout.write(n);
+      } else {
+        process.stdout.write(n + '\n');
+      }
     }
   });
 }
