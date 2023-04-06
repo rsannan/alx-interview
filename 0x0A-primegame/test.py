@@ -1,4 +1,11 @@
+#!/usr/bin/python3
+"""
+isWinner:
+returns winner of the game
+"""
+
 class Player:
+    """Class for players"""
     def __init__(self, loss_count=0):
         self.loss_count = loss_count
     
@@ -35,6 +42,7 @@ class Player:
         self.loss_count = self.loss_count + 1
 
 def isWinner(x, nums):
+    """finds winner of game"""
     maria = Player()
     ben = Player()
 
@@ -57,10 +65,14 @@ def isWinner(x, nums):
        i += 1
     
     if ben.loss_count < maria.loss_count:
-        print('ben won')
+        return "Ben"
     elif maria.loss_count < ben.loss_count:
-        print('maria won') 
+        return "Maria"
+    else:
+        return None
 
 
-isWinner(3, [4, 5, 1])
-isWinner(5, [2, 5, 1, 4, 3])
+
+print(isWinner(3, [4, 5, 1]))
+print(isWinner(5, [2, 5, 1, 4, 3]))
+print("Winner: {}".format(isWinner(5, [2, 5, 1, 4, 3])))

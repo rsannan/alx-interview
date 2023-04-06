@@ -7,7 +7,7 @@ returns winner of the game
 
 class Player:
     """Class for players"""
-    def _init_(self, loss_count=0):
+    def __init__(self, loss_count=0):
         self.loss_count = loss_count
 
     def check_prime(self, num):
@@ -72,6 +72,3 @@ def isWinner(x, nums):
         return "Maria"
     else:
         return None
-
-
-print("Winner: {}".format(isWinner(5, [2, 5, 1, 4, 3])))
